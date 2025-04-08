@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Commenté pour l'instant car nous n'avons pas encore de tests
+# npm test
