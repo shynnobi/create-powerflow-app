@@ -1,0 +1,35 @@
+{
+  "name": "create-powerflow-app",
+  "version": "1.0.0",
+  "description": "CLI tool to create a new PowerFlow application with best practices",
+  "main": "dist/index.js",
+  "bin": {
+    "create-powerflow-app": "./dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "powerflow",
+    "create-app",
+    "cli",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.6.5",
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^22.14.0",
+    "chalk": "^5.4.1",
+    "inquirer": "^12.5.2",
+    "ora": "^8.2.0",
+    "simple-git": "^3.27.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
