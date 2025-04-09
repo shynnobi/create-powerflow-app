@@ -1,8 +1,7 @@
-import inquirer, { Question, Answers, QuestionCollection } from 'inquirer';
+import inquirer, { Question } from 'inquirer';
 import fs from 'fs/promises';
 import path from 'path';
 import chalk from 'chalk';
-import { spinner } from '../commands/create.js';
 
 async function validateProjectName(input: string): Promise<boolean | string> {
   if (!input.trim()) {

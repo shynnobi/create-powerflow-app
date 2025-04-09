@@ -8,13 +8,6 @@ import { promptProjectInfo, promptGit, promptProjectName } from './utils/prompt-
 let currentProjectPath: string | null = null;
 let isCleaningUp = false;
 
-// Ensure cleanup happens before exit
-process.stdin.on('keypress', (str, key) => {
-  if (key.ctrl && key.name === 'c') {
-    cleanup();
-  }
-});
-
 async function cleanup() {
   if (isCleaningUp) return;
   isCleaningUp = true;
@@ -33,9 +26,12 @@ async function cleanup() {
   process.exit(0);
 }
 
-// Handle interrupts
-process.on('SIGINT', cleanup);
-process.on('SIGTERM', cleanup);
+// Handle Ctrl+C
+process.stdin.on('keypress', (str, key) => {
+  if (key.ctrl && key.name === 'c') {
+    cleanup();
+  }
+});
 
 async function directoryExists(path: string): Promise<boolean> {
   try {
@@ -83,18 +79,13 @@ async function init() {
       git: gitConfig.git
     });
 
-    // Disable raw mode
-    process.stdin.setRawMode(false);
-    process.stdin.pause();
-
   } catch (error: any) {
-    // Disable raw mode in case of error
-    process.stdin.setRawMode(false);
-    process.stdin.pause();
-
     console.error(chalk.red('Error:'), error?.message || error);
     await cleanup();
-    process.exit(1);
+  } finally {
+    // Always disable raw mode
+    process.stdin.setRawMode(false);
+    process.stdin.pause();
   }
 }
 
