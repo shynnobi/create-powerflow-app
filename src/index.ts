@@ -14,6 +14,12 @@ async function directoryExists(path: string): Promise<boolean> {
   }
 }
 
+// Gérer l'interruption proprement
+process.on('SIGINT', () => {
+  console.log(chalk.red('\nOperation cancelled'));
+  process.exit(0);
+});
+
 async function init() {
   try {
     // Option 1 : Nom du projet en argument
@@ -46,7 +52,11 @@ async function init() {
       git
     });
 
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.message?.includes('User force closed the prompt')) {
+      console.log(chalk.red('\nOperation cancelled'));
+      process.exit(0);
+    }
     console.error(chalk.red('Error:'), error);
     process.exit(1);
   }
