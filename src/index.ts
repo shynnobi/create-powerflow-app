@@ -2,8 +2,40 @@
 import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs/promises';
-import { createProject } from './commands/create.js';
+import { createProject, spinner } from './commands/create.js';
 import { promptProjectInfo, promptGit, promptProjectName } from './utils/prompt-ui.js';
+
+let currentProjectPath: string | null = null;
+let isCleaningUp = false;
+
+// Ensure cleanup happens before exit
+process.stdin.on('keypress', (str, key) => {
+  if (key.ctrl && key.name === 'c') {
+    cleanup();
+  }
+});
+
+async function cleanup() {
+  if (isCleaningUp) return;
+  isCleaningUp = true;
+
+  spinner.stop();
+  
+  if (currentProjectPath) {
+    try {
+      await fs.rm(currentProjectPath, { recursive: true, force: true });
+    } catch (error) {
+      // Ignore cleanup errors
+    }
+  }
+  
+  console.log(chalk.red('\nOperation cancelled'));
+  process.exit(0);
+}
+
+// Handle interrupts
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);
 
 async function directoryExists(path: string): Promise<boolean> {
   try {
@@ -14,18 +46,15 @@ async function directoryExists(path: string): Promise<boolean> {
   }
 }
 
-// Gérer l'interruption proprement
-process.on('SIGINT', () => {
-  console.log(chalk.red('\nOperation cancelled'));
-  process.exit(0);
-});
-
 async function init() {
   try {
-    // Option 1 : Nom du projet en argument
+    // Enable raw mode to capture Ctrl+C
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+
+    // Option 1: Project name from arguments
     let projectName = process.argv[2];
     if (projectName) {
-      // Vérifier si le dossier existe déjà
       const projectPath = path.join(process.cwd(), projectName);
       if (await directoryExists(projectPath)) {
         console.error(chalk.red(`Error: Directory "${projectName}" already exists`));
@@ -33,31 +62,38 @@ async function init() {
         process.exit(1);
       }
     } 
-    // Option 2 : Demander le nom du projet via le CLI
+    // Option 2: Ask for project name via CLI
     else {
       projectName = await promptProjectName();
     }
 
-    // Étape 1 : Informations du projet
+    currentProjectPath = path.join(process.cwd(), projectName);
+
+    // Step 1: Project information
     const projectInfo = await promptProjectInfo(projectName);
 
-    // Étape 2 : Configuration Git
-    const { git } = await promptGit();
+    // Step 2: Git configuration
+    const gitConfig = await promptGit();
 
-    // Étape 3 : Installation
+    // Step 3: Installation
     await createProject({
       projectName,
       ...projectInfo,
       features: [],
-      git
+      git: gitConfig.git
     });
 
+    // Disable raw mode
+    process.stdin.setRawMode(false);
+    process.stdin.pause();
+
   } catch (error: any) {
-    if (error?.message?.includes('User force closed the prompt')) {
-      console.log(chalk.red('\nOperation cancelled'));
-      process.exit(0);
-    }
-    console.error(chalk.red('Error:'), error);
+    // Disable raw mode in case of error
+    process.stdin.setRawMode(false);
+    process.stdin.pause();
+
+    console.error(chalk.red('Error:'), error?.message || error);
+    await cleanup();
     process.exit(1);
   }
 }

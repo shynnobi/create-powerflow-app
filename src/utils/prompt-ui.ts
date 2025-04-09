@@ -1,7 +1,8 @@
-import inquirer from 'inquirer';
+import inquirer, { Question, Answers, QuestionCollection } from 'inquirer';
 import fs from 'fs/promises';
 import path from 'path';
 import chalk from 'chalk';
+import { spinner } from '../commands/create.js';
 
 async function validateProjectName(input: string): Promise<boolean | string> {
   if (!input.trim()) {
@@ -17,43 +18,46 @@ async function validateProjectName(input: string): Promise<boolean | string> {
   }
 }
 
-export async function promptProjectName() {
+export async function promptProjectName(): Promise<string> {
   const { projectName } = await inquirer.prompt([
     {
       type: 'input',
       name: 'projectName',
       message: 'Project name:',
       default: 'my-powerflow-app',
+      prefix: '',
       validate: validateProjectName
-    }
+    } as Question
   ]);
   return projectName;
 }
 
-export async function promptProjectInfo(defaultProjectName: string) {
+export async function promptProjectInfo(projectName: string): Promise<any> {
   return inquirer.prompt([
     {
       type: 'input',
       name: 'description',
       message: 'Description:',
-      default: 'A modern React application built with PowerFlow'
+      default: `A PowerFlow project named ${projectName}`,
+      prefix: ''
     },
     {
       type: 'input',
       name: 'author',
       message: 'Author:',
-      default: process.env.USER || ''
+      prefix: ''
     }
-  ]);
+  ] as Question[]);
 }
 
-export async function promptGit() {
+export async function promptGit(): Promise<any> {
   return inquirer.prompt([
     {
       type: 'confirm',
       name: 'git',
-      message: 'Initialize Git?',
-      default: true
-    }
+      message: 'Initialize a git repository?',
+      default: true,
+      prefix: ''
+    } as Question
   ]);
 }
