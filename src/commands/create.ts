@@ -4,6 +4,7 @@ import ora from 'ora';
 import path from 'path';
 import fs from 'fs/promises';
 import { generateReadme } from '../utils/generate-readme.js';
+import { directoryExists } from '../utils/fs-utils.js';
 
 interface ProjectOptions {
   projectName: string;
@@ -15,17 +16,10 @@ interface ProjectOptions {
 
 const TEMPLATE_REPO = 'https://github.com/shynnobi/vite-powerflow.git';
 
-async function directoryExists(path: string): Promise<boolean> {
-  try {
-    await fs.access(path);
-    return true;
-  } catch {
-    return false;
-  }
-}
+// Créer un spinner global pour pouvoir l'arrêter de n'importe où
+export const spinner = ora();
 
 export async function createProject(options: ProjectOptions): Promise<void> {
-  const spinner = ora();
   const projectPath = path.join(process.cwd(), options.projectName);
 
   try {
@@ -64,15 +58,16 @@ export async function createProject(options: ProjectOptions): Promise<void> {
 
     // Initialiser Git si demandé
     if (options.git) {
+      console.log(''); // Saut de ligne après "Initialize Git? Yes"
       spinner.start('Initializing git repository...');
       const projectGit = simpleGit(projectPath);
       await projectGit.init();
       await projectGit.add('.');
       await projectGit.commit('Initial commit: Project created with create-powerflow-app');
-      spinner.succeed('Initialized git repository'); // Saut de ligne après l'initialisation
+      spinner.succeed('Initialized git repository\n'); // Saut de ligne après l'initialisation
     }
 
-    console.log(chalk.green('✨ Project created successfully!\n'));
+    console.log(chalk.green('✨ Project created successfully!'));
     console.log('Next steps:');
     console.log(chalk.cyan(`  cd ${options.projectName}`));
     console.log(chalk.cyan('  pnpm install'));

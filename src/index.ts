@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { createProject, spinner } from './commands/create.js';
 import { promptProjectInfo, promptGit, promptProjectName } from './utils/prompt-ui.js';
+import { directoryExists } from './utils/fs-utils.js';
 
 let currentProjectPath: string | null = null;
 let isCleaningUp = false;
@@ -32,15 +33,6 @@ process.stdin.on('keypress', (str, key) => {
     cleanup();
   }
 });
-
-async function directoryExists(path: string): Promise<boolean> {
-  try {
-    await fs.access(path);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 async function init() {
   try {
