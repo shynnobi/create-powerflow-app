@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Exécute lint-staged pour vérifier les fichiers modifiés
+npx lint-staged
+
 # Commenté pour l'instant car nous n'avons pas encore de tests
 # npm test
