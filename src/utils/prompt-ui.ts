@@ -1,4 +1,4 @@
-import inquirer, { Question } from 'inquirer';
+import inquirer, { Question, Answers, QuestionCollection } from 'inquirer';
 import fs from 'fs/promises';
 import path from 'path';
 import chalk from 'chalk';
@@ -18,7 +18,7 @@ async function validateProjectName(input: string): Promise<boolean | string> {
 }
 
 export async function promptProjectName(): Promise<string> {
-  const { projectName } = await inquirer.prompt([
+  const { projectName } = await inquirer.prompt<{ projectName: string }>([
     {
       type: 'input',
       name: 'projectName',
@@ -26,13 +26,19 @@ export async function promptProjectName(): Promise<string> {
       default: 'my-powerflow-app',
       prefix: '',
       validate: validateProjectName
-    } as Question
+    } as Question<{ projectName: string }>
   ]);
   return projectName;
 }
 
-export async function promptProjectInfo(projectName: string): Promise<any> {
-  return inquirer.prompt([
+export interface ProjectInfo {
+  projectName: string;
+  description: string;
+  author: string;
+}
+
+export async function promptProjectInfo(projectName: string): Promise<Pick<ProjectInfo, 'description' | 'author'>> {
+  return inquirer.prompt<Pick<ProjectInfo, 'description' | 'author'>>([
     {
       type: 'input',
       name: 'description',
@@ -46,17 +52,21 @@ export async function promptProjectInfo(projectName: string): Promise<any> {
       message: 'Author:',
       prefix: ''
     }
-  ] as Question[]);
+  ] as QuestionCollection<Pick<ProjectInfo, 'description' | 'author'>>);
 }
 
-export async function promptGit(): Promise<any> {
-  return inquirer.prompt([
+interface GitConfig {
+  git: boolean;
+}
+
+export async function promptGit(): Promise<GitConfig> {
+  return inquirer.prompt<GitConfig>([
     {
       type: 'confirm',
       name: 'git',
       message: 'Initialize a git repository?',
       default: true,
       prefix: ''
-    } as Question
+    } as Question<GitConfig>
   ]);
 }

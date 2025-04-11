@@ -58,17 +58,17 @@ async function init() {
     currentProjectPath = path.join(process.cwd(), projectName);
 
     // Step 1: Project information
-    const projectInfo = await promptProjectInfo(projectName);
+    const { description, author } = await promptProjectInfo(projectName);
 
     // Step 2: Git configuration
-    const gitConfig = await promptGit();
+    const { git } = await promptGit();
 
-    // Step 3: Installation
+    // Step 3: Project creation
     await createProject({
       projectName,
-      ...projectInfo,
-      features: [],
-      git: gitConfig.git
+      description, 
+      author,
+      git
     });
 
   } catch (error: any) {

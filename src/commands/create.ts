@@ -10,7 +10,6 @@ interface ProjectOptions {
   projectName: string;
   description: string;
   author: string;
-  features: string[];
   git: boolean;
 }
 
