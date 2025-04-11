@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Exécute lint-staged pour vérifier les fichiers modifiés
+# Run lint-staged to check modified files
 npx lint-staged
 
-# Commenté pour l'instant car nous n'avons pas encore de tests
+# Commented out for now as we don't have tests yet
 # npm test
