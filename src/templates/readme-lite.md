@@ -51,9 +51,13 @@ pnpm dev
 
 ## 📖 Documentation
 
-- [Features](docs/features.md) - Overview of features and technologies included in the starter
-- [Getting Started](docs/getting-started.md) - Installation and setup instructions
-- [Architecture](docs/architecture.md) - Project structure and organization
+- [Features](./docs/features.md) - Overview of features and technologies included in the starter
+- [Getting Started](./docs/getting-started.md) - Installation and setup instructions
+- **GitHub Integration:**
+  - [Permissions Setup](./docs/github-permissions-setup.md) - Configure GitHub tokens and repository permissions
+  - [CI Workflows](./docs/github-ci-workflows-setup.md) - CI/CD and Dependabot automation configuration
+  - [CLI & AI Integration](./docs/github-cli-ai-setup.md) - GitHub CLI setup for AI-assisted development
+- [Architecture](./docs/architecture.md) - Project structure and organization
 - [Development Environment](docs/development.md) - Development tools and workflow setups
 - [Configuration](docs/configuration.md) - Overview of configuration files and options
 - [Changelog](CHANGELOG.md) - Version history and updates
