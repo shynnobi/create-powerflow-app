@@ -60,9 +60,86 @@ export async function createProject(options: ProjectOptions): Promise<void> {
     // Initialize Git if requested
     if (options.git) {
       console.log(''); // Add newline after "Initialize Git? Yes"
-      spinner.start('Initializing git repository...');
+
+      // Check for user.name and user.email in global git config
+      let gitUserName = '';
+      let gitUserEmail = '';
+      let useGlobalIdentity = true;
       const projectGit = simpleGit(projectPath);
+      try {
+        gitUserName = (await projectGit.raw(['config', '--global', '--get', 'user.name'])).trim();
+      } catch {}
+      try {
+        gitUserEmail = (await projectGit.raw(['config', '--global', '--get', 'user.email'])).trim();
+      } catch {}
+
+      // Gather git identity info BEFORE starting spinner or git init
+      let localUserName = gitUserName;
+      let localUserEmail = gitUserEmail;
+      if (gitUserName && gitUserEmail) {
+        const inquirer = await import('inquirer');
+        const confirm = await inquirer.default.prompt([
+          {
+            type: 'confirm',
+            name: 'useGlobal',
+            message: `Found global git identity:\n  Name: ${gitUserName}\n  Email: ${gitUserEmail}\nDo you want to use this for this project?`,
+            default: true,
+          },
+        ]);
+        useGlobalIdentity = confirm.useGlobal;
+        if (!useGlobalIdentity) {
+          const answers = await inquirer.default.prompt([
+            {
+              type: 'input',
+              name: 'gitUserName',
+              message: 'Git user.name (for commits):',
+              default: gitUserName,
+            },
+            {
+              type: 'input',
+              name: 'gitUserEmail',
+              message: 'Git user.email (for commits):',
+              default: gitUserEmail,
+            },
+          ]);
+          localUserName = answers.gitUserName;
+          localUserEmail = answers.gitUserEmail;
+        }
+      } else {
+        // If any value is missing, prompt for both
+        console.log(
+          'No global git identity found. Please enter your name and email for this project.'
+        );
+        const inquirer = await import('inquirer');
+        const answers = await inquirer.default.prompt([
+          {
+            type: 'input',
+            name: 'gitUserName',
+            message: 'Git user.name (for commits):',
+            default: gitUserName || undefined,
+          },
+          {
+            type: 'input',
+            name: 'gitUserEmail',
+            message: 'Git user.email (for commits):',
+            default: gitUserEmail || undefined,
+          },
+        ]);
+        localUserName = answers.gitUserName;
+        localUserEmail = answers.gitUserEmail;
+      }
+
+      spinner.start('Initializing git repository...');
       await projectGit.init();
+      // If user provided custom identity, set it locally
+      if (!useGlobalIdentity || !gitUserName || !gitUserEmail) {
+        if (localUserName) {
+          await projectGit.addConfig('user.name', localUserName, false, 'local');
+        }
+        if (localUserEmail) {
+          await projectGit.addConfig('user.email', localUserEmail, false, 'local');
+        }
+      }
       await projectGit.add('.');
       await projectGit.commit('Initial commit: Project created with create-vite-powerflow-app');
       spinner.succeed('Initialized git repository\n'); // Add newline after initialization
