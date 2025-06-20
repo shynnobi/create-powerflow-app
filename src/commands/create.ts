@@ -37,6 +37,8 @@ export async function createProject(options: ProjectOptions): Promise<void> {
     // Remove .git directory
     spinner.start('Cleaning up...');
     await fs.rm(path.join(projectPath, '.git'), { recursive: true, force: true });
+    // Remove docs directory if it exists
+    await fs.rm(path.join(projectPath, 'docs'), { recursive: true, force: true });
     spinner.succeed('Cleaned up successfully');
 
     // Update package.json
