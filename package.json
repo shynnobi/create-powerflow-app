@@ -1,7 +1,7 @@
 {
   "name": "create-vite-powerflow-app",
-  "version": "1.0.1",
-  "description": "CLI tool to create a new Vite PowerFlow project",
+  "version": "1.0.2",
+  "description": "CLI tool to create a new Vite PowerFlow app",
   "type": "module",
   "bin": {
     "create-vite-powerflow-app": "./dist/index.js"
