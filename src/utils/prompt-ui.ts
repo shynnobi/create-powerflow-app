@@ -23,7 +23,7 @@ export async function promptProjectName(): Promise<string> {
       type: 'input',
       name: 'projectName',
       message: 'Project name:',
-      default: 'my-powerflow-app',
+      default: 'my-vite-powerflow-app',
       prefix: '',
       validate: validateProjectName
     } as Question<{ projectName: string }>
@@ -43,7 +43,7 @@ export async function promptProjectInfo(projectName: string): Promise<Pick<Proje
       type: 'input',
       name: 'description',
       message: 'Description:',
-      default: `A PowerFlow project named ${projectName}`,
+      default: `A Vite PowerFlow project named ${projectName}`,
       prefix: ''
     },
     {

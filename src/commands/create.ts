@@ -62,7 +62,7 @@ export async function createProject(options: ProjectOptions): Promise<void> {
       const projectGit = simpleGit(projectPath);
       await projectGit.init();
       await projectGit.add('.');
-      await projectGit.commit('Initial commit: Project created with create-powerflow-app');
+      await projectGit.commit('Initial commit: Project created with create-vite-powerflow-app');
       spinner.succeed('Initialized git repository\n'); // Add newline after initialization
     }
 

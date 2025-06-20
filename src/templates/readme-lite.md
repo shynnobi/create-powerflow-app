@@ -14,7 +14,7 @@ A React + Vite starter, fully containerized for reproducible and collaborative d
    cd my-app
    ```
 
-2. Open your new project in **Cursor** or **Visual Studio Code**
+2. Open your new project in [**Cursor**](https://www.cursor.so/) or [**Visual Studio Code**](https://code.visualstudio.com/)
 
 3. `Reopen in Container` when prompted (Dev Container)
 

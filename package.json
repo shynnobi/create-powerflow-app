@@ -1,10 +1,10 @@
 {
-  "name": "create-powerflow-app",
+  "name": "create-vite-powerflow-app",
   "version": "1.0.1",
   "description": "CLI tool to create a new Vite PowerFlow project",
   "type": "module",
   "bin": {
-    "create-powerflow-app": "./dist/index.js"
+    "create-vite-powerflow-app": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc && mkdir -p dist/templates && cp src/templates/*.md dist/templates/",
