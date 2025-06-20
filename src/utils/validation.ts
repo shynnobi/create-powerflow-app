@@ -16,4 +16,4 @@ export function validateProjectName(input: string): boolean | string {
   }
 
   return true;
-} 
+}

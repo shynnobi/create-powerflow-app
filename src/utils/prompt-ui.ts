@@ -25,8 +25,8 @@ export async function promptProjectName(): Promise<string> {
       message: 'Project name:',
       default: 'my-vite-powerflow-app',
       prefix: '',
-      validate: validateProjectName
-    } as Question<{ projectName: string }>
+      validate: validateProjectName,
+    } as Question<{ projectName: string }>,
   ]);
   return projectName;
 }
@@ -37,21 +37,23 @@ export interface ProjectInfo {
   author: string;
 }
 
-export async function promptProjectInfo(projectName: string): Promise<Pick<ProjectInfo, 'description' | 'author'>> {
+export async function promptProjectInfo(
+  projectName: string
+): Promise<Pick<ProjectInfo, 'description' | 'author'>> {
   return inquirer.prompt<Pick<ProjectInfo, 'description' | 'author'>>([
     {
       type: 'input',
       name: 'description',
       message: 'Description:',
       default: `A Vite PowerFlow project named ${projectName}`,
-      prefix: ''
+      prefix: '',
     },
     {
       type: 'input',
       name: 'author',
       message: 'Author:',
-      prefix: ''
-    }
+      prefix: '',
+    },
   ] as QuestionCollection<Pick<ProjectInfo, 'description' | 'author'>>);
 }
 
@@ -66,7 +68,7 @@ export async function promptGit(): Promise<GitConfig> {
       name: 'git',
       message: 'Initialize a git repository?',
       default: true,
-      prefix: ''
-    } as Question<GitConfig>
+      prefix: '',
+    } as Question<GitConfig>,
   ]);
 }

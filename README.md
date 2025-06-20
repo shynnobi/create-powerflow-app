@@ -22,10 +22,10 @@ yarn global add create-vite-powerflow-app
 The fastest way: run the CLI instantly, no installation required :
 
 ```bash
-# Using npx 
+# Using npx
 npx create-vite-powerflow-app my-app
 
-# Using pnpx 
+# Using pnpx
 pnpx create-vite-powerflow-app my-app
 
 # Using yarn dlx
@@ -34,7 +34,6 @@ yarn dlx create-vite-powerflow-app my-app
 # Using the globally installed package
 create-vite-powerflow-app my-app
 ```
-
 
 ## License
 

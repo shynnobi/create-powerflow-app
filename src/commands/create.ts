@@ -45,11 +45,11 @@ export async function createProject(options: ProjectOptions): Promise<void> {
     spinner.start('Updating package.json...');
     const packageJsonPath = path.join(projectPath, 'package.json');
     const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'));
-    
+
     packageJson.name = options.projectName;
     packageJson.description = options.description;
     packageJson.author = options.author;
-    
+
     await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
     spinner.succeed('Updated package.json successfully');
 
@@ -73,9 +73,8 @@ export async function createProject(options: ProjectOptions): Promise<void> {
     console.log(chalk.cyan(`  cd ${options.projectName}`));
     console.log(chalk.cyan('  pnpm install'));
     console.log(chalk.cyan('  pnpm dev'));
-
   } catch (error) {
     spinner.fail('Failed to create project');
     throw error;
   }
-} 
+}

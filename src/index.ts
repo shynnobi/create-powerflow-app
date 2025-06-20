@@ -14,7 +14,7 @@ async function cleanup() {
   isCleaningUp = true;
 
   spinner.stop();
-  
+
   if (currentProjectPath) {
     try {
       await fs.rm(currentProjectPath, { recursive: true, force: true });
@@ -22,7 +22,7 @@ async function cleanup() {
       // Ignore cleanup errors
     }
   }
-  
+
   console.log(chalk.red('\nOperation cancelled'));
   process.exit(0);
 }
@@ -49,7 +49,7 @@ async function init() {
         console.log('Try a different name or run without arguments for interactive mode.');
         process.exit(1);
       }
-    } 
+    }
     // Option 2: Ask for project name via CLI
     else {
       projectName = await promptProjectName();
@@ -66,11 +66,10 @@ async function init() {
     // Step 3: Project creation
     await createProject({
       projectName,
-      description, 
+      description,
       author,
-      git
+      git,
     });
-
   } catch (error: any) {
     console.error(chalk.red('Error:'), error?.message || error);
     await cleanup();
@@ -81,4 +80,4 @@ async function init() {
   }
 }
 
-init(); 
+init();

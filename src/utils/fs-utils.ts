@@ -7,4 +7,4 @@ export async function directoryExists(path: string): Promise<boolean> {
   } catch {
     return false;
   }
-} 
+}

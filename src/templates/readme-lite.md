@@ -1,4 +1,3 @@
-
 # Vite PowerFlow ⚡
 
 A React + Vite starter, fully containerized for reproducible and collaborative development, with strict code quality tooling and AI pair programming workflow (Cursor rules). Includes comprehensive testing, linting, and CI/CD configurations following industry best practices.
@@ -10,16 +9,33 @@ A React + Vite starter, fully containerized for reproducible and collaborative d
 1. **Create a new project using the CLI**
 
    ```bash
-   npx create-powerflow-app my-app
-   cd my-app
+   # Using npx
+   npx create-vite-powerflow-app my-app
+
+   # Using pnpx
+   pnpx create-vite-powerflow-app my-app
+
+   # Using yarn dlx
+   yarn dlx create-vite-powerflow-app my-app
    ```
 
 2. Open your new project in [**Cursor**](https://www.cursor.so/) or [**Visual Studio Code**](https://code.visualstudio.com/)
 
 3. `Reopen in Container` when prompted (Dev Container)
 
-4. Start developing! 🚀
+4. Wait for the installation (can take a few minutes)
 
+5. Launch dev server:
+
+   ```bash
+   pnpm dev
+   # or
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+6. Start developing! 🚀
 
 ## 👤 Credits
 
