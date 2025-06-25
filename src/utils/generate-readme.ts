@@ -25,25 +25,8 @@ export function generateReadme(info: ProjectInfo): string {
   const template = fs.readFileSync(templatePath, 'utf-8');
 
   // Replace placeholders with project-specific information
-  return (
-    template
-      // Replace project name
-      .replace(/# Vite PowerFlow/g, `# ${info.projectName}`)
-      // Replace description in the header
-      .replace(
-        /<strong>Vite PowerFlow<\/strong> - Your next React project, ready to go\./g,
-        `<strong>${info.projectName}</strong> - ${info.description}`
-      )
-      // Replace description at the top
-      .replace(
-        /A modern, feature-rich starter template for React applications built with Vite\./g,
-        info.description
-      )
-      // Replace Quick Start section
-      .replace(
-        /```bash[\s\S]*?```/,
-        '```bash\n# Install dependencies\npnpm install\n\n# Start development server\npnpm dev\n\n# Build for production\npnpm build\n```'
-      )
-  );
-  // Note: We preserve the original footer with Shynn attribution
+  return template
+    .replace(/\{\{projectName\}\}/g, info.projectName)
+    .replace(/\{\{description\}\}/g, info.description)
+    .replace(/\{\{author\}\}/g, info.author);
 }

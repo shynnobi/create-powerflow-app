@@ -19,7 +19,15 @@ const TEMPLATE_REPO = 'https://github.com/shynnobi/vite-powerflow.git';
 export const spinner = ora();
 
 export async function createProject(options: ProjectOptions): Promise<void> {
-  const projectPath = path.join(process.cwd(), options.projectName);
+  // Fonction pour rendre le nom safe pour npm et le dossier
+  function safePackageName(name: string) {
+    return name
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-_.]/g, '');
+  }
+  const safeDirName = safePackageName(options.projectName);
+  const projectPath = path.join(process.cwd(), safeDirName);
 
   try {
     // Check if directory already exists
@@ -46,9 +54,14 @@ export async function createProject(options: ProjectOptions): Promise<void> {
     const packageJsonPath = path.join(projectPath, 'package.json');
     const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'));
 
-    packageJson.name = options.projectName;
+    packageJson.name = safePackageName(options.projectName);
     packageJson.description = options.description;
     packageJson.author = options.author;
+
+    // Supprimer les champs liés au starter d'origine
+    delete packageJson.repository;
+    delete packageJson.homepage;
+    delete packageJson.bugs;
 
     await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
     spinner.succeed('Updated package.json successfully');
