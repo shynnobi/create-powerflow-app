@@ -9,6 +9,11 @@ import { directoryExists } from './utils/fs-utils.js';
 let currentProjectPath: string | null = null;
 let isCleaningUp = false;
 
+process.on('SIGINT', () => {
+  console.log('\n' + chalk.yellow('Operation cancelled.'));
+  process.exit(0);
+});
+
 async function cleanup() {
   if (isCleaningUp) return;
   isCleaningUp = true;
