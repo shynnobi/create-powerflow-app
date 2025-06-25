@@ -4,7 +4,7 @@
   "description": "CLI tool to create a new Vite PowerFlow app",
   "type": "module",
   "bin": {
-    "create-vite-powerflow-app": "./dist/index.js"
+    "create-vite-powerflow": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc && mkdir -p dist/templates && cp src/templates/*.md dist/templates/",
