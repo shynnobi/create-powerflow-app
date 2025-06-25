@@ -1,5 +1,5 @@
 {
-  "name": "create-vite-powerflow-app",
+  "name": "create-vite-powerflow",
   "version": "1.0.4",
   "description": "CLI tool to create a new Vite PowerFlow app",
   "type": "module",
@@ -25,19 +25,19 @@
   "license": "MIT",
   "packageManager": "pnpm@10.6.5",
   "devDependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "@types/inquirer": "^9.0.7",
-    "@types/node": "^22.14.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^15.5.1",
-    "prettier": "^3.5.3",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@types/inquirer": "^9.0.8",
+    "@types/node": "^22.15.33",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {
     "chalk": "^5.4.1",
-    "inquirer": "^9.2.16",
-    "ora": "^8.0.1",
-    "simple-git": "^3.22.0"
+    "inquirer": "^9.3.7",
+    "ora": "^8.2.0",
+    "simple-git": "^3.28.0"
   }
 }

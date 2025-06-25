@@ -1,42 +1,23 @@
-# Create Vite PowerFlow App ⚡
+# Create Vite PowerFlow ⚡
 
-The **Create PowerFlow App CLI** lets you quickly scaffold modern React apps using [Vite PowerFlow](https://github.com/shynnobi/vite-powerflow) — a fully containerized React + Vite starter with strict code quality, AI pair programming (Cursor rules), and robust testing, linting, and CI/CD out of the box.
+The **Create Vite PowerFlow CLI** lets you quickly scaffold modern React apps using [Vite PowerFlow](https://github.com/shynnobi/vite-powerflow) — a fully containerized React + Vite starter with strict code quality, AI pair programming (Cursor rules), and robust testing, linting, and CI/CD configurations following industry best practices.
 
-## Installing the CLI Tool
-
-Optionally, you can install the CLI globally for quick access with a single command. Use your favorite package manager:
-
-```bash
-# Using pnpm
-pnpm install -g create-vite-powerflow-app
-
-# Using npm
-npm install -g create-vite-powerflow-app
-
-# Using yarn
-yarn global add create-vite-powerflow-app
-```
+> 📚 For full documentation, see the [Vite PowerFlow starter README](https://github.com/shynnobi/vite-powerflow#readme).
 
 ## Generate Your App
 
 The fastest way: run the CLI instantly, no installation required :
 
 ```bash
-# Using npx
-npx create-vite-powerflow-app my-app
-
-# Using pnpx
-pnpx create-vite-powerflow-app my-app
-
-# Using yarn dlx
-yarn dlx create-vite-powerflow-app my-app
-
-# Using the globally installed package
-create-vite-powerflow-app my-app
+npx create-vite-powerflow my-app
 ```
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Copyright (c) 2025 [Shynn](https://github.com/shynnobi)
+## 👤 Credits
+
+The [starter template](https://github.com/shynnobi/vite-powerflow) was created and is maintained by [Shynn](https://github.com/shynnobi)
+
+[![GitHub](https://img.shields.io/badge/GitHub-shynnobi-24292e.svg?style=for-the-badge&logo=github)](https://github.com/shynnobi)

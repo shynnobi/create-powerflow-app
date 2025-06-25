@@ -6,20 +6,13 @@ A React + Vite starter, fully containerized for reproducible and collaborative d
 
 ## 🚀 Quick Start
 
-1. **Create a new project using the CLI**
+1. Generate your app using the CLI
 
    ```bash
-   # Using npx
-   npx create-vite-powerflow-app my-app
-
-   # Using pnpx
-   pnpx create-vite-powerflow-app my-app
-
-   # Using yarn dlx
-   yarn dlx create-vite-powerflow-app my-app
+   npx create-vite-powerflow my-app
    ```
 
-2. Open your new project in [**Cursor**](https://www.cursor.so/) or [**Visual Studio Code**](https://code.visualstudio.com/)
+2. Open your app in [**Cursor**](https://www.cursor.so/) or [**Visual Studio Code**](https://code.visualstudio.com/)
 
 3. `Reopen in Container` when prompted (Dev Container)
 
@@ -29,10 +22,6 @@ A React + Vite starter, fully containerized for reproducible and collaborative d
 
    ```bash
    pnpm dev
-   # or
-   npm run dev
-   # or
-   yarn dev
    ```
 
 6. Start developing! 🚀
